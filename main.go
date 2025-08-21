@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 	"os"
 
 	"github.com/go-chi/chi"
@@ -88,9 +89,18 @@ func main() {
 	v1Router.Get("/healthz", handlerReadiness)
 
 	router.Mount("/v1", v1Router)
+	log.Printf("router mounted to %v", v1Router)
+	if port == "" {
+		log.Print("Missing port value, defaulting port to 8080")
+		port = "8080"
+	} else if _, err := strconv.Atoi(port); err != nil {
+		log.Print("Invalid port valie, defaulting to 8080")
+		port = "8080"
+	}
 	srv := &http.Server{
 		Addr:    ":" + port,
 		Handler: router,
+		ReadHeaderTimeout: 5,
 	}
 
 	log.Printf("Serving on port: %s\n", port)
