@@ -3,7 +3,7 @@ on:
     branches: [main]
 
 jobs:
-  Deploy:
+  deploy:
     name: Deploy
     runs-on: ubuntu-latest
 
@@ -19,8 +19,13 @@ jobs:
       - name: Build app
         run: ./scripts/buildprod.sh
 
-      - name: Set up gcloud
-        run: snap install google-cloud-cli --classic
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
 
       - name: Submit gcloud build
-        run: gcloud builds submit --tag us-central1-docker.pkg.dev/planar-cipher-469716-n6/notely-ar-repo/hadookhan/notely:latest .
+        run: gcloud builds submit --tag us-central1-docker.pkg.dev/planar-cipher-469716-n6/notely-ar-repo/notely:latest .
