@@ -29,3 +29,5 @@ jobs:
 
       - name: Submit gcloud build
         run: gcloud builds submit --tag us-central1-docker.pkg.dev/planar-cipher-469716-n6/notely-ar-repo/notely:latest .
+
+# working
