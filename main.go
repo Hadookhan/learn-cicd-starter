@@ -6,8 +6,8 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"strconv"
 	"os"
+	"strconv"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
@@ -98,8 +98,8 @@ func main() {
 		port = "8080"
 	}
 	srv := &http.Server{
-		Addr:    ":" + port,
-		Handler: router,
+		Addr:              ":" + port,
+		Handler:           router,
 		ReadHeaderTimeout: 5,
 	}
 
