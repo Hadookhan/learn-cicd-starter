@@ -20,7 +20,7 @@ jobs:
         run: ./scripts/buildprod.sh
 
       - name: Set up gcloud
-        uses: actions/setup-gcloud@v2
+        run: snap install google-cloud-cli --classic
 
       - name: Submit gcloud build
         run: gcloud builds submit --tag us-central1-docker.pkg.dev/planar-cipher-469716-n6/notely-ar-repo/hadookhan/notely:latest .
